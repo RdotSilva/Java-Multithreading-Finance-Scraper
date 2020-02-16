@@ -83,4 +83,23 @@ public class Scraper {
 
     }
 
+    public void scrape() throws  IOException {
+        // Options for local driver. Uncomment when running locally.
+        String driverType = "webdriver.chrome.driver";
+        String driverLocation = "C:\\chromedriver\\chromedriver.exe";
+        System.setProperty(driverType, driverLocation);
+        ChromeOptions chromeOptions = new ChromeOptions();
+//        chromeOptions.setHeadless(true);
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+
+        login(driver);
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        List<WebElement> stockRows = navigateToStockData(driver);
+
+        buildStockList(stockRows);
+        driver.close();
+    }
+
 }
