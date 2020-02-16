@@ -46,4 +46,41 @@ public class Scraper {
         return stockRows;
     }
 
+    public void buildStockList(List<WebElement> stockRows) {
+        for (WebElement row : stockRows
+        ) {
+            String[] eachStock = row.getText().split(" ");
+            String[] splitSymbol = eachStock[0].split("\\r?\\n");
+            String[] splitMarketCap = eachStock[9].split("\\r?\\n");
+
+            java.util.Date scrapeDate = new java.util.Date();
+
+            // Convert timestamp to sql format.
+            java.sql.Timestamp sqlDate = new java.sql.Timestamp(scrapeDate.getTime());
+
+            // Extract stock data
+            String symbol = splitSymbol[0];
+            String lastPrice = splitSymbol[1];
+            String changeAmount = eachStock[1];
+            String changePercent = eachStock[2];
+            String volume = eachStock[6];
+            String averageVolume = eachStock[8];
+            String marketCap = splitMarketCap[0];
+
+            // Build Stock Object with Data
+            Stock stock = new Stock();
+            stock.setScrapeDate(sqlDate);
+            stock.setSymbol(symbol);
+            stock.setLastPrice(lastPrice);
+            stock.setChangeAmount(changeAmount);
+            stock.setChangePercent(changePercent);
+            stock.setVolume(volume);
+            stock.setAverageVolume(averageVolume);
+            stock.setMarketCap(marketCap);
+
+            stockList.add(stock);
+        }
+
+    }
+
 }
