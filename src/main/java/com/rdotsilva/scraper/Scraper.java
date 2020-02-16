@@ -31,4 +31,19 @@ public class Scraper {
         driver.findElement(By.id(passwordId)).sendKeys(password + Keys.RETURN);
     }
 
+    public static List<WebElement> navigateToStockData(WebDriver driver) {
+        String portfolioUrl = "https://finance.yahoo.com/portfolio/p_0/view/v1";
+
+        String stockTableTag = "tbody";
+        String stockRowsClass = "simpTblRow";
+
+        driver.get(portfolioUrl);
+
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        WebElement stockTable = driver.findElement(By.tagName(stockTableTag));
+        List<WebElement> stockRows = stockTable.findElements(By.className(stockRowsClass));
+
+        return stockRows;
+    }
+
 }
