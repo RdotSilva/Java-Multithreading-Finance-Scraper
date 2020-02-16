@@ -102,4 +102,10 @@ public class Scraper {
         driver.close();
     }
 
+    public void printStocks() {
+        for (Stock stock: stockList
+             ) {
+            System.out.println(stock.getSymbol());
+        }
+    }
 }
