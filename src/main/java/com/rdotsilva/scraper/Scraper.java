@@ -5,7 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
@@ -74,7 +73,7 @@ public class Scraper {
         return stockRows;
     }
 
-    public void buildStockList(List<WebElement> stockRows) throws SQLException {
+    public void buildStockObject(List<WebElement> stockRows) throws SQLException {
         for (WebElement row : stockRows
         ) {
             String[] eachStock = row.getText().split(" ");
@@ -139,7 +138,8 @@ public class Scraper {
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         List<WebElement> stockRows = navigateToStockData(driver);
 
-        buildStockList(stockRows);
+        // Build stock object from scrape data
+        buildStockObject(stockRows);
         driver.close();
     }
 
