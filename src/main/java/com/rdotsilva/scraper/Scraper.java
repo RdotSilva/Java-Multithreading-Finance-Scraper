@@ -22,6 +22,7 @@ public class Scraper {
     String driverLocation;
     WebDriver driver;
     Connection conn = null;
+    ArrayList<Stock> stockList = new ArrayList<>();
 
     public Scraper(String driverName) {
         if (driverName.equals("chrome")) {
@@ -35,9 +36,13 @@ public class Scraper {
             System.setProperty(driverType, driverLocation);
             this.driver = new FirefoxDriver();
         }
-    }
 
-    ArrayList<Stock> stockList = new ArrayList<>();
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/multithread_finance",);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void login(WebDriver driver) {
         String loginUrl = "https://login.yahoo.com/config/login?.src=fpctx&.intl=us&.lang=en-US&.done=https%3A%2F%2Fwww.yahoo.com";
@@ -101,24 +106,6 @@ public class Scraper {
             stock.setAverageVolume(averageVolume);
             stock.setMarketCap(marketCap);
 
-            try {
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/multithread_finance",);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            String sql = "insert into stock (scrape_date, symbol, last_price, change_amount, change_percent, volume, average_volume, market_cap)" + "values (?, ?, ?, ?, ?, ?, ?, ?)";
-
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-
-            preparedStatement.setTimestamp(1, sqlDate);
-            preparedStatement.setString(2, symbol);
-            preparedStatement.setString(3, lastPrice);
-            preparedStatement.setString(4, changeAmount);
-            preparedStatement.setString(5, changePercent);
-            preparedStatement.setString(6, volume);
-            preparedStatement.setString(7, averageVolume);
-            preparedStatement.setString(8, marketCap);
             sendStockToDatabase(stock);
         }
     }
