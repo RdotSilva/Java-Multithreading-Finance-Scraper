@@ -1,6 +1,7 @@
 package com.rdotsilva.scraper;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ScraperThread extends Thread {
     @Override
@@ -10,7 +11,7 @@ public class ScraperThread extends Thread {
         try {
             scraper.scrape(scraper.driver);
             scraper.printStocks();
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }

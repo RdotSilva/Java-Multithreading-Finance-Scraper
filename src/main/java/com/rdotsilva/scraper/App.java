@@ -9,7 +9,7 @@ public class App
         ScraperThread scraperThread = new ScraperThread();
         ScraperThread scraperThreadTwo = new ScraperThreadTwo();
         scraperThread.start();
-        scraperThreadTwo.start();
+//        scraperThreadTwo.start();
     }
 }
 

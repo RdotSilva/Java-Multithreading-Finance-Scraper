@@ -9,6 +9,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -65,7 +69,7 @@ public class Scraper {
         return stockRows;
     }
 
-    public void buildStockList(List<WebElement> stockRows) {
+    public void buildStockList(List<WebElement> stockRows) throws SQLException {
         for (WebElement row : stockRows
         ) {
             String[] eachStock = row.getText().split(" ");
@@ -126,7 +130,7 @@ public class Scraper {
 
     }
 
-    public void scrape(WebDriver driver) throws  IOException {
+    public void scrape(WebDriver driver) throws IOException, SQLException {
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.setHeadless(true);
 
