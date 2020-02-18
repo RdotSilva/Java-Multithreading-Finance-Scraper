@@ -42,6 +42,11 @@
       <artifactId>selenium-api</artifactId>
       <version>3.141.59</version>
     </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.19</version>
+    </dependency>
   </dependencies>
 
   <build>
