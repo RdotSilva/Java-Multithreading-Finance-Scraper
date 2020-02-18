@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Scraper {
+    String driverType;
+    String driverLocation;
+    WebDriver driver;
 
     ArrayList<Stock> stockList = new ArrayList<>();
 
