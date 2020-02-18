@@ -119,15 +119,28 @@ public class Scraper {
             preparedStatement.setString(6, volume);
             preparedStatement.setString(7, averageVolume);
             preparedStatement.setString(8, marketCap);
-
-            int rowNums = preparedStatement.executeUpdate();
-
-            System.out.println("Number of rows affected: " + rowNums);
-
-
-            stockList.add(stock);
+            sendStockToDatabase(stock);
         }
+    }
 
+    public void sendStockToDatabase(Stock stock) throws SQLException {
+        String sql = "insert into stock (scrape_date, symbol, last_price, change_amount, change_percent, volume, average_volume, market_cap)" + "values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+        preparedStatement.setTimestamp(1, stock.getScrapeDate());
+        preparedStatement.setString(2, stock.getSymbol());
+        preparedStatement.setString(3, stock.getLastPrice());
+        preparedStatement.setString(4, stock.getChangeAmount());
+        preparedStatement.setString(5, stock.getChangePercent());
+        preparedStatement.setString(6, stock.getVolume());
+        preparedStatement.setString(7, stock.getAverageVolume());
+        preparedStatement.setString(8, stock.getMarketCap());
+
+        int rowNums = preparedStatement.executeUpdate();
+        System.out.println("Number of rows affected: " + rowNums);
+
+        stockList.add(stock);
     }
 
     public void scrape(WebDriver driver) throws IOException, SQLException {
