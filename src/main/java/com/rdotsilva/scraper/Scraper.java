@@ -102,6 +102,9 @@ public class Scraper {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            String sql = "insert into stock (scrape_date, symbol, last_price, change_amount, change_percent, volume, average_volume, market_cap)" + "values (?, ?, ?, ?, ?, ?, ?, ?)";
+
             stockList.add(stock);
         }
 
