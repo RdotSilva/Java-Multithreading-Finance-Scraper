@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +17,20 @@ public class Scraper {
     String driverType;
     String driverLocation;
     WebDriver driver;
+
+    public Scraper(String driverName) {
+        if (driverName.equals("chrome")) {
+            this.driverType = "webdriver.chrome.driver";
+            this.driverLocation = "C:\\chromedriver\\chromedriver.exe";
+            System.setProperty(driverType, driverLocation);
+            this.driver = new ChromeDriver();
+        } else if (driverName.equals("gecko")) {
+            this.driverType = "webdriver.gecko.driver";
+            this.driverLocation = "C:\\geckodriver\\geckodriver.exe";
+            System.setProperty(driverType, driverLocation);
+            this.driver = new FirefoxDriver();
+        }
+    }
 
     ArrayList<Stock> stockList = new ArrayList<>();
 
