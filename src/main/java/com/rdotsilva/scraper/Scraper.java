@@ -17,6 +17,7 @@ public class Scraper {
     String driverType;
     String driverLocation;
     WebDriver driver;
+    Connection conn = null;
 
     public Scraper(String driverName) {
         if (driverName.equals("chrome")) {
@@ -96,6 +97,11 @@ public class Scraper {
             stock.setAverageVolume(averageVolume);
             stock.setMarketCap(marketCap);
 
+            try {
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/multithread_finance",);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             stockList.add(stock);
         }
 
